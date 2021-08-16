@@ -13,6 +13,8 @@ void menu(){
     cout<<"\t\t\t 4. Rainbow\n";
     cout<<"\t\t\t 5. House\n";
     cout<<"\t\t\t 6. Clock\n";
+    cout<<"\t\t\t 7. DDA Algorithm\n";
+    cout<<"\t\t\t 8. Bresenham’s Line Drawing Algorithm\n";
 
 }
 
@@ -279,6 +281,117 @@ void house(){
     closegraph();
 
 }
+void dda(){
+    float x,y,x1,y1,x2,y2,dx,dy,steps;
+    initwindow(800,800,"DDA Line Drawing Algorithm");
+    //First write my name
+    my_name();
+    cout<<"\tEnter the first co-ordinate of the line(x1,y1): ";
+    cin>>x1>>y1;
+    cout<<"\tEnter the second co-ordinate of the line(x2,y2): ";
+    cin>>x2>>y2;
+
+    dx=abs(x2-x1);
+    dy=abs(y2-y1);
+
+     if(dx>=dy)
+        steps=dx;
+     else
+        steps=dy;
+    dx=(dx/steps);
+    dy=(dy/steps);
+     x=x1;
+     y=y1;
+
+    if((x1>x2)||(y1>y2)){
+    for(int i=1;i<=steps;i++){
+        if(x1>x2&&y1>y2){
+            putpixel(x,y,WHITE);
+            x=x-dx;
+            y=y-dy;
+            delay(20);
+        }
+        if(x1>x2&&y1<y2){
+            putpixel(x,y,YELLOW);
+            x=x-dx;
+            y=y+dy;
+            delay(20);
+        }
+        if(x1<x2&&y1>y2){
+            putpixel(x,y,RED);
+            x=x+dx;
+            y=y-dy;
+            delay(20);
+        }
+     }
+    }
+    else{
+      for(int i=1;i<=steps;i++){
+        putpixel(x,y,GREEN);
+        x=x+dx;
+        y=y+dy;
+        delay(20);
+     }
+    }
+    int j;
+    cout<<"\tEnter any key any integer to close the graph: ";
+    cin>>j;
+    closegraph();
+}
+void blda(){
+    int x,y,x1,y1,x2,y2,dx,dy,p;
+    initwindow(800,800,"Bresenham’s Line Drawing Algorithm");
+    //First write my name
+    my_name();
+    cout<<"\tEnter the first co-ordinate of the line(x1,y1): ";
+    cin>>x1>>y1;
+    cout<<"\tEnter the second co-ordinate of the line(x2,y2): ";
+    cin>>x2>>y2;
+
+    dx=abs(x2-x1);
+    dy=abs(y2-y1);
+
+    x=x1;
+    y=y1;
+    if(dx>=dy){
+        p=(2*dy)-dx;
+
+    while(x<=x2){
+        if(p>0){
+            putpixel(x,y,GREEN);
+            y=y+1;
+            p=p+(2*dy)-(2*dx);
+        }
+        else{
+            putpixel(x,y,GREEN);
+            p=p+(2*dy);
+        }
+        x=x+1;
+        delay(20);
+    }
+    }
+    else if(dx<dy){
+        p=(2*dx)-dy;
+
+    while(y<=y2){
+        if(p>0){
+            putpixel(x,y,WHITE);
+            x=x+1;
+            p=p+(2*dx)-(2*dy);
+        }
+        else{
+            putpixel(x,y,WHITE);
+            p=p+(2*dx);
+        }
+        y=y+1;
+        delay(20);
+    }
+    }
+    int j;
+    cout<<"\tEnter any key any integer to close the graph: ";
+    cin>>j;
+    closegraph();
+}
 int main(){
     int my_option;
     while(1){
@@ -316,10 +429,17 @@ int main(){
         house();
     }
     else if(my_option==6){
-        cout<<"\tHouse: \n";
+        cout<<"\tClock: \n";
         clock();
     }
-
+    else if(my_option==7){
+        cout<<"\tDDA: \n";
+        dda();
+    }
+    else if(my_option==8){
+        cout<<"\tBLDA: \n";
+        blda();
+    }
     else{
         cout<<"\tYou chose wrong option!\n\tTry again!\n";
     }
